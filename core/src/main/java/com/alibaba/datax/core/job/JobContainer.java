@@ -11,6 +11,7 @@ import com.alibaba.datax.common.statistics.VMInfo;
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.common.util.StrUtil;
 import com.alibaba.datax.core.AbstractContainer;
+import com.alibaba.datax.core.DataXResult;
 import com.alibaba.datax.core.Engine;
 import com.alibaba.datax.core.container.util.HookInvoker;
 import com.alibaba.datax.core.container.util.JobAssignUtil;
@@ -642,8 +643,22 @@ public class JobContainer extends AbstractContainer {
                     communication.getLongCounter(CommunicationTool.TRANSFORMER_FILTER_RECORDS)
             ));
         }
-
-
+        Engine.threadLocal.set(new DataXResult(startTimeStamp,
+                endTimeStamp,
+                totalCosts,
+                byteSpeedPerSecond,
+                recordSpeedPerSecond,
+                communication.getLongCounter(CommunicationTool.TOTAL_READ_RECORDS),
+                communication.getLongCounter(CommunicationTool.READ_SUCCEED_RECORDS),
+                communication.getLongCounter(CommunicationTool.READ_FAILED_RECORDS),
+                communication.getLongCounter("writeSucceedRecords"),
+                communication.getLongCounter(CommunicationTool.WRITE_FAILED_RECORDS),
+                communication.getLongCounter(CommunicationTool.READ_SUCCEED_BYTES),
+                communication.getLongCounter("writeSucceedBytes"),
+                this.endTransferTimeStamp,
+                this.startTransferTimeStamp,
+                transferCosts
+        ));
     }
 
     /**

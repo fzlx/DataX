@@ -36,6 +36,8 @@ public class Engine {
 
     private static String RUNTIME_MODE;
 
+    public static ThreadLocal<DataXResult> threadLocal = new ThreadLocal<>();
+
     /* check job model (job/task) first */
     public void start(Configuration allConf) {
 

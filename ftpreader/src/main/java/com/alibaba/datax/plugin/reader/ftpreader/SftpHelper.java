@@ -117,6 +117,9 @@ public class SftpHelper extends FtpHelper {
 			if(sftpATTRS.getSize() >= 0){
 				isExitFlag = true;
 			}
+			if(sftpATTRS.getSize() == 0){
+				throw DataXException.asDataXException(FtpReaderErrorCode.FILE_IS_EMPTY, null, null);
+			}
 		} catch (SftpException e) {
 			if (e.getMessage().toLowerCase().equals("no such file")) {
 				String message = String.format("请确认您的配置项path:[%s]存在，且配置的用户有权限读取", filePath);
